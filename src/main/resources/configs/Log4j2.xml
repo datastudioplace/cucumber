@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="basePath">./logs</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="File" fileName="${basePath}/prints.log"
+                     filePattern="${basePath}/%d{YYYYMMddHHmmss}.log">
+            <PatternLayout pattern="%d{dd-MM-YYYY HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10000" />
+            </Policies>
+            <DefaultRolloverStrategy max="100" />
+        </RollingFile>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+
+        //Customised Logs for a specific testcase and Log results(like error info bug)//
+        <Logger name = "src.test.java.Demo"
+                level= "error"
+                additivity = "false">
+            <AppenderRef ref="File" />
+        </Logger>
+
+
+        <Root level="trace">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="File" />
+        </Root>
+
+    </Loggers>
+
+</Configuration>
